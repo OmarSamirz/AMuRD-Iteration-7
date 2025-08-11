@@ -1,32 +1,21 @@
-import json
-from pathlib import Path
-from teradata_db import TeradataDatabase  # Assuming your class is saved here
+import pandas as pd
 
-def get_text(*fields):
-    return " ".join([f.strip() for f in fields if f and f.strip()])
 
-def insert_classes(db, schema):
-    for l1 in schema:
-        for l2 in l1.get("Childs", []):
-            for l3 in l2.get("Childs", []):
-                for brick in l3.get("Childs", []):  # Brick
-                    brick_name = brick.get("Title", "")
-                    brick_desc = get_text(brick.get("Definition", ""), brick.get("DefinitionExcludes", ""))
+def load_gpc_to_classes(GPC_PATH):
+    df = pd.read_excel(GPC_PATH)
 
-                    for attr in brick.get("Childs", []):  # Attribute Type
-                        attr_name = attr.get("Title", "")
-                        attr_desc = get_text(attr.get("Definition", ""), attr.get("DefinitionExcludes", ""))
+    df["class_name"] = (
+        df["BrickTitle"].fillna("") + " - " +
+        df["AttributeTitle"].fillna("") + " - " +
+        df["AttributeValueTitle"].fillna("")
+    )
 
-                        for val in attr.get("Childs", []):  # Attribute Value
-                            val_name = val.get("Title", "")
-                            val_desc = get_text(val.get("Definition", ""), val.get("DefinitionExcludes", ""))
+    def join_non_empty(*args):
+        return " ".join([str(a).strip() for a in args if pd.notna(a) and str(a).strip()])
 
-                            class_name = f"{brick_name} - {attr_name} - {val_name}"
-                            description = get_text(brick_desc, attr_desc, val_desc)
-
-                            query = f"""
-                                INSERT INTO amurd.classes (class_name, description)
-                                VALUES ('{class_name.replace("'", "''")}', '{description.replace("'", "''")}')
-                            """
-                            db.execute_query(query)
-
+    df["description"] = df.apply(lambda row: join_non_empty(
+        row["BrickDefinition_Includes"],
+        row["BrickDefinition_Excludes"],
+        row["AttributeDefinition"],
+        row["AttributeValueDefinition"]
+    ), axis=1)
