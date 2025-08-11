@@ -1,3 +1,0 @@
-[2025-08-11 14:10:55] - logger:_log - INFO - Logger initialized. Logs will be saved to c:\internship\AMuRD-Iteration-7\src\logs\borai_20250811_141055.log
-[2025-08-11 14:10:55] - logger:_log - INFO - TeradataDatabase instance initialized
-[2025-08-11 14:10:55] - logger:_log - INFO - Operation 'Database connection' started - Details: {'host': 'iteration6-72i0y48cfm1eb812.env.clearscape.teradata.com', 'database': 'amurd'}
