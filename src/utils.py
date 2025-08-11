@@ -30,15 +30,14 @@ def remove_punctuations(text: str) -> str:
     return " ".join(text.strip().split()) 
 
 def clean_text(row) -> str:
-    text = row.Item_Name
-    brand = row.Brand
-    unit = str(row.Unit)
+    text = row.product_name
+    brand = row.brand_name
     text = remove_strings(text, [brand])
     text = remove_punctuations(text)
     text = remove_numbers(text)
-    text = remove_stopwords(text)
-    if unit not in text and text == "":
-        text += unit
+    # text = remove_stopwords(text)
+    # if unit not in text and text == "":
+    #     text += unit
 
     return  text
 

@@ -1,0 +1,9 @@
+[2025-08-11 16:11:50] - logger:_log - INFO - Logger initialized. Logs will be saved to c:\internship\AMuRD-Iteration-7\src\logs\borai_20250811_161150.log
+[2025-08-11 16:11:50] - logger:_log - INFO - TeradataDatabase instance initialized
+[2025-08-11 16:11:50] - logger:_log - INFO - Operation 'Database connection' started - Details: {'host': 'iteration6-72i0y48cfm1eb812.env.clearscape.teradata.com', 'database': 'amurd'}
+[2025-08-11 16:11:58] - logger:_log - INFO - Operation 'Database connection' completed
+[2025-08-11 16:11:58] - logger:_log - INFO - Operation 'Query execution' started - Details: {'query': 'SELECT * FROM amurd.products'}
+[2025-08-11 16:12:00] - logger:_log - INFO - Operation 'Query execution' completed - Details: {'rows_returned': 4573}
+[2025-08-11 16:12:10] - warnings:_showwarnmsg - WARNING - c:\internship\AMuRD-Iteration-7\.venv\Lib\site-packages\teradataml\scriptmgmt\lls_utils.py:109: SyntaxWarning: invalid escape sequence '\.'
+  """
+
