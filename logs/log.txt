@@ -1,0 +1,16 @@
+[2025-08-11 12:51:01] - logger:_log - INFO - Logger initialized. Logs will be saved to c:\internship\AMuRD-Iteration-7\logs\log.txt
+[2025-08-11 12:51:01] - logger:_log - INFO - TeradataDatabase instance initialized
+[2025-08-11 12:51:01] - logger:_log - INFO - Operation 'Database connection' started - Details: {'host': 'iteration6-72i0y48cfm1eb812.env.clearscape.teradata.com', 'database': 'amurd'}
+[2025-08-11 12:51:07] - logger:_log - INFO - Operation 'Database connection' completed
+[2025-08-11 12:51:07] - logger:_log - INFO - Operation 'Schema retrieval' started
+[2025-08-11 12:51:07] - logger:_log - DEBUG - Getting sample data for table: classes
+[2025-08-11 12:51:08] - logger:_log - DEBUG - No sample data available for table: classes
+[2025-08-11 12:51:08] - logger:_log - DEBUG - Getting sample data for table: class_embeddings
+[2025-08-11 12:51:08] - logger:_log - DEBUG - No sample data available for table: class_embeddings
+[2025-08-11 12:51:08] - logger:_log - DEBUG - Getting sample data for table: products
+[2025-08-11 12:51:08] - logger:_log - DEBUG - No sample data available for table: products
+[2025-08-11 12:51:08] - logger:_log - DEBUG - Getting sample data for table: product_embeddings
+[2025-08-11 12:51:09] - logger:_log - DEBUG - No sample data available for table: product_embeddings
+[2025-08-11 12:51:09] - logger:_log - INFO - Operation 'Schema retrieval' completed - Details: {'tables_count': 4}
+[2025-08-11 12:53:40] - logger:_log - INFO - Operation 'Database disconnection' started
+[2025-08-11 12:53:43] - logger:_log - INFO - Operation 'Database disconection' completed
