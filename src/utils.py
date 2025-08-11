@@ -41,7 +41,5 @@ def clean_text(row) -> str:
 
     return  text
 
-from constants import GPC_PATH
-
 
 
