@@ -5,14 +5,14 @@ from teradataml import execute_sql
 import os
 from typing import Any, List, Dict
 
-from logger import logger
+from constants import ENV_PATH
+from moduels.logger import logger
 
 
 class TeradataDatabase:
 
     def __init__(self):
-        env_path = os.path.join(os.path.dirname(__name__), "config", ".env")
-        load_dotenv(env_path)
+        load_dotenv(ENV_PATH)
 
         self.host = os.getenv("TD_HOST")
         self.database = os.getenv("TD_NAME")
