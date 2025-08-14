@@ -1,9 +1,10 @@
+import pandas as pd
 
 import re
 import json
 from typing import List 
 
-from constants import ALL_STOPWORDS, ALL_BRANDS
+from constants import ALL_STOPWORDS, ALL_BRANDS, GPC_PATH
 from modules.models import SentenceEmbeddingModel, SentenceEmbeddingConfig
 
 def remove_brand_name(text: str) -> str:
@@ -39,7 +40,15 @@ def remove_punctuations(text: str) -> str:
 
     return " ".join(text.strip().split()) 
 
-def clean_text(text: str) -> str:
+def remove_special_chars(text: str) -> str:
+    text = re.sub(r"[-_/\\|]", " ", text)  
+
+    return " ".join(text.strip().split())
+
+def clean_text(row) -> str:
+    text = row["Item_Name"]
+    brand = row["Brand"]
+    text = remove_strings(text, [brand])
     text = remove_punctuations(text)
     text = remove_numbers(text)
     text = remove_brand_name(text)
@@ -61,3 +70,26 @@ def load_embedding_model(config_path: str):
     model = SentenceEmbeddingModel(config)
 
     return model
+
+def join_non_empty(*args):
+    return " ".join([str(a).strip() for a in args if pd.notna(a) and str(a).strip()])
+    
+def load_gpc_to_classes():
+    df = pd.read_excel(GPC_PATH)
+
+    df["class_name"] = (
+        df["BrickTitle"].fillna("") + " - " +
+        df["AttributeTitle"].fillna("") + " - " +
+        df["AttributeValueTitle"].fillna("")
+    )
+
+    df["description"] = df.apply(lambda row: join_non_empty(
+        row["BrickDefinition_Includes"],
+        row["BrickDefinition_Excludes"],
+        row["AttributeDefinition"],
+        row["AttributeValueDefinition"]
+    ), axis=1)
+
+    df_new = df[["class_name", "description"]]
+
+    return df_new
