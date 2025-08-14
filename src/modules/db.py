@@ -6,7 +6,7 @@ import os
 from typing import Any, List, Dict
 
 from constants import ENV_PATH
-from moduels.logger import logger
+from modules.logger import logger
 
 
 class TeradataDatabase:
