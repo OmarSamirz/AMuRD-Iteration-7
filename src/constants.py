@@ -1,11 +1,18 @@
+import torch
 import nltk
 from nltk.corpus import stopwords
 
 from pathlib import Path
 
-nltk.download('stopwords')
+try:
+    ALL_STOPWORDS = set(stopwords.words("arabic") + stopwords.words("english"))
+except:
+    nltk.download("stopwords")
+    ALL_STOPWORDS = set(stopwords.words("arabic") + stopwords.words("english"))
 
-ALL_STOPWORDS = set(stopwords.words("arabic") + stopwords.words("english"))
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+
+RANDOM_STATE = 42
 
 BASE_DIR = Path(__file__).parent.parent
 

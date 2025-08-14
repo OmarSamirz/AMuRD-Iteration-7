@@ -41,7 +41,7 @@ class SentenceEmbeddingModel:
         embeddings = self.model.encode(texts, prompt_name=prompt_name, convert_to_numpy=False, convert_to_tensor=True)
 
         return embeddings
-
+    
     def calculate_scores(self, query_embeddings: Tensor, document_embeddings: Tensor) -> Tensor:
         scores = self.model.similarity(query_embeddings, document_embeddings)
 

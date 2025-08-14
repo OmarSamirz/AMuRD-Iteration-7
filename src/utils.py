@@ -1,3 +1,5 @@
+import torch
+import torch.nn.functional as F
 import pandas as pd
 
 import re
@@ -38,12 +40,12 @@ def remove_stopwords(text: str):
 def remove_punctuations(text: str) -> str:
     text = re.sub(r'[^\w\s]', '', text)
 
-    return " ".join(text.strip().split()) 
+    return " ".join(text.strip().split())
 
 def remove_special_chars(text: str) -> str:
     text = re.sub(r"[-_/\\|]", " ", text)  
 
-    return " ".join(text.strip().split())
+    return " ".join(text.strip().split()).lower()
 
 def clean_text(row) -> str:
     text = row["Item_Name"]
@@ -56,7 +58,7 @@ def clean_text(row) -> str:
     # if unit not in text and text == "":
         # text += unit
 
-    return  text.lower()
+    return text.lower()
 
 def load_embedding_model(config_path: str):
     with open(config_path, "r") as f:
@@ -93,3 +95,13 @@ def load_gpc_to_classes():
     df_new = df[["class_name", "description"]]
 
     return df_new
+
+def cluster_topk_classes(cluster_embeddings: List[List[float]], classes_embeddings: List[List[float]], k: int) -> int:
+    cluster_embeddings = F.normalize(cluster_embeddings, p=2, dim=1)
+    classes_embeddings = F.normalize(classes_embeddings, p=2, dim=1)
+
+    scores = (cluster_embeddings @ classes_embeddings.T)
+
+    topk_classes = torch.topk(scores, k=k)
+
+    return topk_classes[1]
