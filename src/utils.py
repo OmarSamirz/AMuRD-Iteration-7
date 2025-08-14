@@ -1,8 +1,24 @@
 
 import re
+import torch
+import json
+import numpy as np
+import pandas as pd
+from typing import List
+from sklearn.ensemble import BaggingClassifier, VotingClassifier
+from xgboost import XGBClassifier
+from sklearn.base import BaseEstimator, ClassifierMixin
+from sklearn.preprocessing import LabelEncoder
+
+from models import (
+    SentenceEmbeddingModel, 
+    SentenceEmbeddingConfig,
+)
+
+import re
 from typing import List 
 
-from constants import ALL_STOPWORDS
+from constants import ALL_STOPWORDS, GPC_PATH
 
 def remove_strings(text: str, strings: List[str]) -> str:
     for s in strings:
@@ -29,9 +45,15 @@ def remove_punctuations(text: str) -> str:
 
     return " ".join(text.strip().split()) 
 
+def remove_special_chars(text: str) -> str:
+    text = re.sub(r"[-_/\\|]", " ", text)  
+
+    return " ".join(text.strip().split())
+
+
 def clean_text(row) -> str:
-    text = row.product_name
-    brand = row.brand_name
+    text = row["Item_Name"]
+    brand = row["Brand"]
     text = remove_strings(text, [brand])
     text = remove_punctuations(text)
     text = remove_numbers(text)
@@ -41,31 +63,38 @@ def clean_text(row) -> str:
 
     return  text
 
-def get_text(*fields):
-    return " ".join([f.strip() for f in fields if f and f.strip()])
+def load_embedding_model(config_path: str):
+    with open(config_path, "r") as f:
 
-def insert_classes(db, schema):
-    for l1 in schema:
-        for l2 in l1.get("Childs", []):
-            for l3 in l2.get("Childs", []):
-                for brick in l3.get("Childs", []):  # Brick
-                    brick_name = brick.get("Title", "")
-                    brick_desc = get_text(brick.get("Definition", ""), brick.get("DefinitionExcludes", ""))
+        config_dict = json.load(f)
+    try:
+        config = SentenceEmbeddingConfig(**config_dict)
+    except TypeError as e:
+        raise ValueError(f"Invalid configuration keys: {e}.")
 
-                    for attr in brick.get("Childs", []):  # Attribute Type
-                        attr_name = attr.get("Title", "")
-                        attr_desc = get_text(attr.get("Definition", ""), attr.get("DefinitionExcludes", ""))
+    model = SentenceEmbeddingModel(config)
 
-                        for val in attr.get("Childs", []):  # Attribute Value
-                            val_name = val.get("Title", "")
-                            val_desc = get_text(val.get("Definition", ""), val.get("DefinitionExcludes", ""))
+    return model
 
-                            class_name = f"{brick_name} - {attr_name} - {val_name}"
-                            description = get_text(brick_desc, attr_desc, val_desc)
+def join_non_empty(*args):
+    return " ".join([str(a).strip() for a in args if pd.notna(a) and str(a).strip()])
+    
+def load_gpc_to_classes(GPC_PATH):
+    df = pd.read_excel(GPC_PATH)
 
-                            query = f"""
-                                INSERT INTO amurd.classes (class_name, description)
-                                VALUES ('{class_name.replace("'", "''")}', '{description.replace("'", "''")}')
-                            """
-                            db.execute_query(query)
+    df["class_name"] = (
+        df["BrickTitle"].fillna("") + " - " +
+        df["AttributeTitle"].fillna("") + " - " +
+        df["AttributeValueTitle"].fillna("")
+    )
 
+    df["description"] = df.apply(lambda row: join_non_empty(
+        row["BrickDefinition_Includes"],
+        row["BrickDefinition_Excludes"],
+        row["AttributeDefinition"],
+        row["AttributeValueDefinition"]
+    ), axis=1)
+
+    df_new = df[["class_name", "description"]]
+
+    return df_new

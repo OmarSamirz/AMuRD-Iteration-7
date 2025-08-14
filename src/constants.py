@@ -13,7 +13,21 @@ DATA_PATH = BASE_DIR / "data"
 
 TEST_DATA_PATH = DATA_PATH / "test.csv"
 
+CLEANED_TEST_DATA_PATH = DATA_PATH / "cleaned_test.csv"
+
+GPC_PATH = DATA_PATH / "GPC.xlsx"
+
+CLEANED_GPC_PATH = DATA_PATH / "cleaned_gpc.csv"
+
+PRODUCT_EMBEDDINGS_PATH = DATA_PATH / "product_embeddings.csv"
+
+CLASS_EMBEDDINGS_PATH = DATA_PATH / "class_embeddings.csv"
+
+SIMILIRAITY_SCORES_PATH = DATA_PATH / "similiraity_scores.csv"
+
 CONFIG_PATH = BASE_DIR / "config"
+
+E5_LARGE_INSTRUCT_CONFIG_PATH = CONFIG_PATH / "e5_large_instruct_config.json"
 
 ENV_PATH = CONFIG_PATH / ".env"
 
