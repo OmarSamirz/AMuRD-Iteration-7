@@ -4,7 +4,7 @@ import pandas as pd
 
 import re
 import json
-from typing import List 
+from typing import List, Tuple
 
 from constants import ALL_STOPWORDS, ALL_BRANDS, GPC_PATH
 from modules.models import SentenceEmbeddingModel, SentenceEmbeddingConfig
@@ -105,3 +105,4 @@ def cluster_topk_classes(cluster_embeddings: List[List[float]], classes_embeddin
     topk_classes = torch.topk(scores, k=k)
 
     return topk_classes[1]
+
