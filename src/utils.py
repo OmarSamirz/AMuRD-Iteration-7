@@ -49,11 +49,11 @@ def remove_special_chars(text: str) -> str:
 
 def clean_text(row) -> str:
     text = row["Item_Name"]
-    brand = row["Brand"]
-    text = remove_strings(text, [brand])
+    # brand = row["Brand"]
+    # text = remove_strings(text, [brand])
     text = remove_punctuations(text)
     text = remove_numbers(text)
-    text = remove_brand_name(text)
+    # text = remove_brand_name(text)
     # text = remove_stopwords(text)
     # if unit not in text and text == "":
         # text += unit
@@ -96,7 +96,7 @@ def load_gpc_to_classes():
 
     return df_new
 
-def cluster_topk_classes(cluster_embeddings: List[List[float]], classes_embeddings: List[List[float]], k: int) -> int:
+def cluster_topk_classes(cluster_embeddings: List[List[float]], classes_embeddings: List[List[float]], k: int) -> torch.Tensor:
     cluster_embeddings = F.normalize(cluster_embeddings, p=2, dim=1)
     classes_embeddings = F.normalize(classes_embeddings, p=2, dim=1)
 
