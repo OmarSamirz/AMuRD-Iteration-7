@@ -32,7 +32,7 @@ GPC_PATH = DATA_PATH / "GPC.xlsx"
 
 CLEANED_GPC_PATH = DATA_PATH / "cleaned_gpc.csv"
 
-PRODUCT_TEST_EMBEDDINGS_PATH = DATA_PATH / "product_test_embeddings.csv"
+PRODUCT_TEST_EMBEDDINGS_PATH = DATA_PATH / "product_embeddings.csv"
 
 PRODUCT_TRAIN_EMBEDDINGS_PATH = DATA_PATH / "product_train_embeddings.csv"
 
