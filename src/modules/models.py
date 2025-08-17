@@ -1,15 +1,52 @@
 import torch
+import pickle
 from torch import Tensor
+from tqdm.auto import tqdm
 import torch.nn.functional as F 
 from sklearn.cluster import KMeans
 from sklearn.dummy import DummyClassifier
-from sklearn.utils.validation import check_is_fitted
 from sentence_transformers import SentenceTransformer
+from transformers import MarianMTModel, MarianTokenizer
 
+from collections import Counter
 from dataclasses import dataclass
 from typing import List, Optional, Dict, Any, Tuple
 
-from constants import RANDOM_STATE
+from constants import RANDOM_STATE, MODEL_PATH
+
+
+@dataclass
+class OpusTranslationModelConfig:
+    padding: bool
+    model_name: str
+    device: str
+    dtype: str
+    truncation: bool
+    skip_special_tokens: bool
+
+
+class OpusTranslationModel:
+
+    def __init__(self, config: OpusTranslationModelConfig):
+        self.config = config
+        self.model = MarianMTModel.from_pretrained(
+            self.config.model_name, 
+            device_map=self.config.device, 
+            torch_dtype=self.config.dtype
+        )
+        self.tokenizer = MarianTokenizer.from_pretrained(self.config.model_name)
+        
+    def translate(self, text: str) -> str:
+        tokens = self.tokenizer(
+            text, 
+            padding=self.config.padding, 
+            truncation=self.config.truncation, 
+            return_tensors="pt"
+        ).to(self.config.device)
+        translated_tokens = self.model.generate(**tokens)
+        translated_text = self.tokenizer.decode(translated_tokens[0], skip_special_tokens=self.config.skip_special_tokens)
+
+        return translated_text
 
 
 @dataclass
@@ -65,17 +102,23 @@ class SentenceEmbeddingModel:
 class KMeansModelConfig:
     n_clusters: int
     topk: Optional[int] = None
+    model_name: Optional[str] = None
 
 
 class KMeansModels:
     
     def __init__(self, config: KMeansModelConfig) -> None:
+        self.config = config
         self.topk = config.topk
         self.n_clusters = config.n_clusters
-        self.kmeans = KMeans(self.n_clusters, random_state=RANDOM_STATE)
+        self.model = (
+            KMeans(self.n_clusters, random_state=RANDOM_STATE) 
+            if config.model_name is None 
+            else self.load_model()
+        )
 
     def fit(self, X) -> None:
-        self.kmeans.fit(X)
+        self.model = self.model.fit(X)
 
     def cosine_similarity(self, cluster_embeddings: Tensor, classes_embeddings: Tensor) -> Tensor:
         cluster_embeddings = F.normalize(cluster_embeddings, p=2, dim=1)
@@ -102,11 +145,8 @@ class KMeansModels:
         return classes
     
     def get_centroid_classes(self, classes_embeddings: Tensor) -> Dict[int, Any]:
-        # if not check_is_fitted(self.kmeans):
-        #     raise ValueError("You need to fit the model first.")
-        
         centroid_classes = {}
-        for i, centroid in enumerate(self.kmeans.cluster_centers_):
+        for i, centroid in tqdm(enumerate(self.model.cluster_centers_)):
             centroid = torch.tensor(centroid, dtype=classes_embeddings.dtype, device=classes_embeddings.device).unsqueeze(0)
             scores = self.cosine_similarity(centroid, classes_embeddings)
             classes = self.get_classes(scores)
@@ -114,21 +154,41 @@ class KMeansModels:
         
         return centroid_classes
     
-    def get_cluster_classes(self, product_embeddings: Tensor, class_embeddings: Tensor) -> Dict[Tuple[int, int], Any]:
-        # if not check_is_fitted(self.kmeans):
-        #     raise ValueError("You need to fit the model first.")
-        
-        labels = self.kmeans.predict(product_embeddings.tolsit())
-        cluster_items = {i: [] for i in range(self.kmeans.n_clusters)}
+    def get_cluster_items(self, product_embeddings: Tensor) -> Dict[Tuple[int, int], Any]:
+        labels = self.model.predict(product_embeddings.tolist())
+        cluster_items = {i: [] for i in range(self.model.n_clusters)}
         for  i, (embedding, label) in enumerate(zip(product_embeddings, labels)):
             cluster_items[label].append((i, embedding))
 
-        cluster_classes = {}
-        for cluster, embeddings in cluster_items.items():
+        return cluster_items
+
+    def get_cluster_classes(self, product_embeddings: Tensor, class_embeddings: Tensor) -> Dict[int, Any]:
+        cluster_items = self.get_cluster_items(product_embeddings)
+
+        clusters_class = {}
+        for cluster, values in tqdm(cluster_items.items()):
+            embeddings = [embedding for _, embedding in values]
+            embeddings = torch.stack(embeddings)
             scores = self.cosine_similarity(embeddings, class_embeddings)
             classes = self.get_classes(scores)
-            cluster_classes[cluster] = classes
+            if classes.dim() > 1:
+                classes = classes.flatten()
+            counter = Counter(classes.tolist())
+            mode, count = counter.most_common(1)[0]
+            clusters_class[cluster] = mode, count, classes.shape[0], count/classes.shape[0]
+
+        return clusters_class
     
+    def save_model(self):
+        with open(MODEL_PATH / self.config.model_name, "wb") as f:
+            pickle.dump(self.model, f)
+
+    def load_model(self) -> None:
+        with open(MODEL_PATH / self.config.model_name, "rb") as f:
+            model = pickle.load(f)
+
+        return model
+
 
 @dataclass
 class DummyModelConfig:

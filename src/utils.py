@@ -4,10 +4,27 @@ import pandas as pd
 
 import re
 import json
-from typing import List, Tuple
+from typing import List
 
-from constants import ALL_STOPWORDS, ALL_BRANDS, GPC_PATH
-from modules.models import SentenceEmbeddingModel, SentenceEmbeddingConfig
+from constants import ALL_STOPWORDS, ALL_BRANDS, GPC_PATH, OPUS_TRANSLATION_CONFIG_PATH
+from modules.models import (
+    KMeansModels,
+    KMeansModelConfig,
+    SentenceEmbeddingModel, 
+    SentenceEmbeddingConfig,
+    OpusTranslationModel,
+    OpusTranslationModelConfig,
+)
+
+def remove_repeated_words(text):
+    text = text.split()
+    final_text = []
+    for word in text:
+        if word in final_text:
+            continue
+        final_text.append(word)
+
+    return " ".join(final_text)
 
 def remove_brand_name(text: str) -> str:
     for brand in ALL_BRANDS:
@@ -38,7 +55,7 @@ def remove_stopwords(text: str):
     return " ".join(text)
 
 def remove_punctuations(text: str) -> str:
-    text = re.sub(r'[^\w\s]', '', text)
+    text = re.sub(r"[^\w\s]", " ", text)
 
     return " ".join(text.strip().split())
 
@@ -47,12 +64,16 @@ def remove_special_chars(text: str) -> str:
 
     return " ".join(text.strip().split()).lower()
 
-def clean_text(row) -> str:
-    text = row["Item_Name"]
+def remove_extra_space(text: str) -> str:
+    return re.sub(r"\s+", " ", text).strip()
+
+def clean_text(text) -> str:
+    # text = row["Item_Name"]
     # brand = row["Brand"]
     # text = remove_strings(text, [brand])
     text = remove_punctuations(text)
     text = remove_numbers(text)
+    text = remove_extra_space(text)
     # text = remove_brand_name(text)
     # text = remove_stopwords(text)
     # if unit not in text and text == "":
@@ -73,6 +94,32 @@ def load_embedding_model(config_path: str):
 
     return model
 
+def load_kmeans_model(config_path: str):
+    with open(config_path, "r") as f:
+        config_dict = json.load(f)
+
+    try:
+        config = KMeansModelConfig(**config_dict)
+    except TypeError as e:
+        raise ValueError(f"Invalid configuration keys: {e}.")
+
+    model = KMeansModels(config)
+
+    return model
+
+def load_translation_model(config_path: str):
+    with open(config_path, "r") as f:
+        config_dict = json.load(f)
+
+    try:
+        config = OpusTranslationModelConfig(**config_dict)
+    except TypeError as e:
+        raise ValueError(f"Invalid configuration keys: {e}.")
+    
+    model = OpusTranslationModel(config)
+
+    return model
+
 def join_non_empty(*args):
     return " ".join([str(a).strip() for a in args if pd.notna(a) and str(a).strip()])
     
@@ -81,19 +128,20 @@ def load_gpc_to_classes():
     df = pd.read_excel(GPC_PATH)
 
     df["class_name"] = (
-          df["SegmentTitle"].fillna("") + " " +
-        df["FamilyTitle"].fillna("") + " " +
-          df["ClassTitle"].fillna("") + " " +
+        df["SegmentTitle"].fillna("") + " " +
+        df["FamilyTitle"] + " " + 
+        df["ClassTitle"] + " " +
         df["BrickTitle"].fillna("")
     )
 
+    df["class_name_cleaned"] = df["class_name"].apply(remove_repeated_words)
 
     df["description"] = df.apply(lambda row: join_non_empty(
         row["BrickDefinition_Includes"],
-        row["BrickDefinition_Excludes"]
+        row["BrickDefinition_Excludes"],
     ), axis=1)
 
-    df_new = df[["class_name", "description"]]
+    df_new = df[["class_name", "class_name_cleaned", "description"]]
 
     return df_new
 
