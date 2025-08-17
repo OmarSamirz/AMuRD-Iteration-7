@@ -76,20 +76,21 @@ def load_embedding_model(config_path: str):
 def join_non_empty(*args):
     return " ".join([str(a).strip() for a in args if pd.notna(a) and str(a).strip()])
     
+
 def load_gpc_to_classes():
     df = pd.read_excel(GPC_PATH)
 
     df["class_name"] = (
-        df["BrickTitle"].fillna("") + " - " +
-        df["AttributeTitle"].fillna("") + " - " +
-        df["AttributeValueTitle"].fillna("")
+          df["SegmentTitle"].fillna("") + " " +
+        df["FamilyTitle"].fillna("") + " " +
+          df["ClassTitle"].fillna("") + " " +
+        df["BrickTitle"].fillna("")
     )
+
 
     df["description"] = df.apply(lambda row: join_non_empty(
         row["BrickDefinition_Includes"],
-        row["BrickDefinition_Excludes"],
-        row["AttributeDefinition"],
-        row["AttributeValueDefinition"]
+        row["BrickDefinition_Excludes"]
     ), axis=1)
 
     df_new = df[["class_name", "description"]]
@@ -105,4 +106,3 @@ def cluster_topk_classes(cluster_embeddings: List[List[float]], classes_embeddin
     topk_classes = torch.topk(scores, k=k)
 
     return topk_classes[1]
-

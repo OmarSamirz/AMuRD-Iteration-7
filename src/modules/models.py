@@ -102,8 +102,8 @@ class KMeansModels:
         return classes
     
     def get_centroid_classes(self, classes_embeddings: Tensor) -> Dict[int, Any]:
-        if not check_is_fitted(self.kmeans):
-            raise ValueError("You need to fit the model first.")
+        # if not check_is_fitted(self.kmeans):
+        #     raise ValueError("You need to fit the model first.")
         
         centroid_classes = {}
         for i, centroid in enumerate(self.kmeans.cluster_centers_):
@@ -115,8 +115,8 @@ class KMeansModels:
         return centroid_classes
     
     def get_cluster_classes(self, product_embeddings: Tensor, class_embeddings: Tensor) -> Dict[Tuple[int, int], Any]:
-        if not check_is_fitted(self.kmeans):
-            raise ValueError("You need to fit the model first.")
+        # if not check_is_fitted(self.kmeans):
+        #     raise ValueError("You need to fit the model first.")
         
         labels = self.kmeans.predict(product_embeddings.tolsit())
         cluster_items = {i: [] for i in range(self.kmeans.n_clusters)}
