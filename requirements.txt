@@ -10,3 +10,7 @@ huggingface-hub
 nltk
 dill
 openpyxl
+tiktoken
+protobuf
+sentencepiece
+sacremoses
