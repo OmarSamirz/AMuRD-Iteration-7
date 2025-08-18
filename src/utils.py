@@ -123,6 +123,7 @@ def load_translation_model(config_path: str):
 def join_non_empty(*args):
     return " ".join([str(a).strip() for a in args if pd.notna(a) and str(a).strip()])
     
+
 def load_gpc_to_classes():
     df = pd.read_excel(GPC_PATH)
 
@@ -153,3 +154,4 @@ def cluster_topk_classes(cluster_embeddings: List[List[float]], classes_embeddin
     topk_classes = torch.topk(scores, k=k)
 
     return topk_classes[1]
+ 
