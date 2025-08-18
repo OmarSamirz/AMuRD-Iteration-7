@@ -9,7 +9,7 @@ from sklearn.neighbors import NearestNeighbors
 from sklearn.cluster import KMeans
 import time
 
-from constants import PRODUCT_EMBEDDINGS_PATH, CLASS_EMBEDDINGS_PATH, RANDOM_STATE, DEVICE, CLEANED_GPC_PATH, CLEANED_TEST_DATA_PATH
+from constants import CLASS_EMBEDDINGS_PATH, RANDOM_STATE, DEVICE, CLEANED_GPC_PATH, PRODUCT_TEST_EMBEDDINGS_PATH, CLEANED_TEST_DATA_PATH
 from utils import load_embedding_model, cluster_topk_classes
 from modules.models import KMeansModels, KMeansModelConfig
 
@@ -44,7 +44,7 @@ st.markdown("""
 def load_data():
     product_df = pd.read_csv(CLEANED_TEST_DATA_PATH)
     class_df = pd.read_csv(CLEANED_GPC_PATH)
-    product_embedding_df = pd.read_csv(PRODUCT_EMBEDDINGS_PATH)
+    product_embedding_df = pd.read_csv(PRODUCT_TEST_EMBEDDINGS_PATH)
     class_embedding_df = pd.read_csv(CLASS_EMBEDDINGS_PATH)
     
     product_full = product_embedding_df.merge(product_df, on="id")
