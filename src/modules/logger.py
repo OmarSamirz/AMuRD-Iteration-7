@@ -1,3 +1,4 @@
+from pathlib import Path
 from dotenv import load_dotenv
 
 import os
@@ -21,7 +22,7 @@ class Logger:
         return cls._instance
     
     def _initialize(self) -> None:
-        env_path = os.path.join(os.path.dirname(__file__), "config", ".env")
+        env_path = os.path.join(Path(__file__).parents[1], "config", ".env")
         load_dotenv(env_path)
 
         log_dir = os.getenv("LOG_DIR", "logs")

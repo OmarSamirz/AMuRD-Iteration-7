@@ -14,7 +14,7 @@ DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 RANDOM_STATE = 42
 
-BASE_DIR = Path(__file__).parent.parent
+BASE_DIR = Path(__file__).parents[1]
 
 DATA_PATH = BASE_DIR / "data"
 
@@ -44,9 +44,9 @@ E5_LARGE_INSTRUCT_CONFIG_PATH = CONFIG_PATH / "e5_large_instruct_config.json"
 
 OPUS_TRANSLATION_CONFIG_PATH = CONFIG_PATH / "opus_translation_config.json"
 
-MODEL_PATH = BASE_DIR / "models"
-
 ENV_PATH = CONFIG_PATH / ".env"
+
+MODEL_PATH = BASE_DIR / "models"
 
 CLASSES_TRANSLATION = {
     "baby care": "العناية بالرضع",
