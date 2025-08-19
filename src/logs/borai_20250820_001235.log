@@ -1,0 +1,16 @@
+[2025-08-20 00:12:35] - logger:_log - INFO - Logger initialized. Logs will be saved to c:\Users\ss255385\OneDrive - Teradata Corporation\Desktop\AMuRD-Iteration-7\src\logs\borai_20250820_001235.log
+[2025-08-20 00:12:37] - logger:_log - INFO - TeradataDatabase instance initialized
+[2025-08-20 00:12:37] - logger:_log - INFO - Operation 'Database connection' started - Details: {'host': 'iteration7-gwyyqrtdecxxq4xk.env.clearscape.teradata.com', 'database': 'demo_user'}
+[2025-08-20 00:12:44] - logger:_log - INFO - Operation 'Database connection' completed
+[2025-08-20 00:13:19] - logger:_log - INFO - Operation 'Query execution' started - Details: {'query': '\n    CREATE TABLE demo_user.similiratiy_score (\n        item_id BIGINT,\n        closest_category_id ...'}
+[2025-08-20 00:13:19] - logger:_log - INFO - Operation 'Query execution' completed - Details: {'rows_returned': 0}
+[2025-08-20 00:13:22] - logger:_log - INFO - Operation 'Query execution' started - Details: {'query': '\nINSERT INTO demo_user.similiratiy_score\nWITH RankedDistances AS (\n    SELECT\n        o.Target_ID AS...'}
+[2025-08-20 00:14:00] - logger:_log - INFO - Operation 'Query execution' completed - Details: {'rows_returned': 0}
+[2025-08-20 00:14:00] - logger:_log - INFO - Operation 'Query execution' started - Details: {'query': 'SELECT * FROM demo_user.similiratiy_score'}
+[2025-08-20 00:14:13] - logger:_log - INFO - Operation 'Query execution' completed - Details: {'rows_returned': 34243}
+[2025-08-20 00:14:51] - logger:_log - INFO - Operation 'Query execution' started - Details: {'query': '\nSELECT\n    p.translated_name AS product_name,\n    c.class_name AS predicted_class,\n    a.class_name...'}
+[2025-08-20 00:15:08] - logger:_log - INFO - Operation 'Query execution' completed - Details: {'rows_returned': 34243}
+[2025-08-20 00:16:20] - logger:_log - INFO - Operation 'Query execution' started - Details: {'query': '\nSELECT * FROM TD_ClassificationEvaluator (\n   ON demo_user.results AS InputTable\n   OUT PERMANENT T...'}
+[2025-08-20 00:16:20] - logger:_log - INFO - Operation 'Query execution' completed - Details: {'rows_returned': 0}
+[2025-08-20 00:16:20] - logger:_log - INFO - Operation 'Query execution' started - Details: {'query': 'select * from demo_user.classification_metrics'}
+[2025-08-20 00:16:20] - logger:_log - INFO - Operation 'Query execution' completed - Details: {'rows_returned': 10}

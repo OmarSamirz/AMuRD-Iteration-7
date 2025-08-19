@@ -7,7 +7,8 @@ from sklearn.cluster import KMeans
 from sklearn.dummy import DummyClassifier
 from sentence_transformers import SentenceTransformer
 from transformers import MarianMTModel, MarianTokenizer
-
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+from sklearn.decomposition import PCA
 from collections import Counter
 from dataclasses import dataclass
 from typing import List, Optional, Dict, Any, Tuple
@@ -188,6 +189,176 @@ class KMeansModels:
             model = pickle.load(f)
 
         return model
+
+@dataclass
+class Falcon3EmbeddingConfig:
+    model_name: str
+    device: str
+    dtype: str
+    padding: bool
+    truncation: bool
+    use_4bit_quantization: bool = True
+    max_length: int = 512
+    convert_to_numpy: bool = False
+    convert_to_tensor: bool = True
+    pooling_strategy: str = "mean"
+    output_dim: int = 1024
+    projection_method: str = "linear"
+
+
+class Falcon3EmbeddingModel:
+    def __init__(self, config: Falcon3EmbeddingConfig):
+        self.config = config
+        self.model_name = config.model_name
+        self.device = config.device
+        self.pooling_strategy = config.pooling_strategy
+        self.output_dim = config.output_dim
+        self.projection_method = config.projection_method
+
+        quantization_config = None
+        if config.use_4bit_quantization:
+            quantization_config = BitsAndBytesConfig(
+                load_in_4bit=True,
+                bnb_4bit_compute_dtype=getattr(torch, config.dtype),
+                bnb_4bit_use_double_quant=True,
+                bnb_4bit_quant_type="nf4"
+            )
+
+        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
+        if self.tokenizer.pad_token is None:
+            self.tokenizer.pad_token = self.tokenizer.eos_token
+
+        model_kwargs = {
+            "device_map": self.device if self.device != "cuda" else "auto",
+            "quantization_config": quantization_config,
+        }
+
+        if not config.use_4bit_quantization:
+            model_kwargs["torch_dtype"] = getattr(torch, config.dtype)
+
+        self.model = AutoModelForCausalLM.from_pretrained(
+            self.model_name,
+            **model_kwargs
+        )
+
+        self.model.eval()
+        self.projection_layer = None
+        self.pca = None
+        self._original_dim = None
+
+    def _initialize_projection_layer(self, original_dim: int):
+        if self._original_dim is not None:
+            return
+        self._original_dim = original_dim
+        if self.projection_method == "linear" and original_dim != self.output_dim:
+            self.projection_layer = torch.nn.Linear(original_dim, self.output_dim, bias=False)
+            torch.nn.init.xavier_uniform_(self.projection_layer.weight)
+            if self.device == "cuda" and torch.cuda.is_available():
+                self.projection_layer = self.projection_layer.cuda()
+            self.projection_layer.eval()
+
+    def _project_embeddings(self, embeddings: Tensor) -> Tensor:
+        if self.projection_method == "truncate":
+            return embeddings[:, :self.output_dim]
+        elif self.projection_method == "linear":
+            self._initialize_projection_layer(embeddings.shape[1])
+            if self.projection_layer is not None:
+                with torch.no_grad():
+                    return self.projection_layer(embeddings)
+            else:
+                return embeddings
+        elif self.projection_method == "pca":
+            was_tensor = torch.is_tensor(embeddings)
+            if was_tensor:
+                embeddings_np = embeddings.cpu().numpy()
+                device = embeddings.device
+            else:
+                embeddings_np = embeddings
+            if self.pca is None:
+                self.pca = PCA(n_components=self.output_dim)
+                self.pca.fit(embeddings_np)
+            projected_np = self.pca.transform(embeddings_np)
+            if was_tensor:
+                return torch.tensor(projected_np, device=device, dtype=embeddings.dtype)
+            else:
+                return projected_np
+        else:
+            raise ValueError(f"Unknown projection method: {self.projection_method}")
+
+    def _pool_embeddings(self, hidden_states: Tensor, attention_mask: Tensor) -> Tensor:
+        if self.pooling_strategy == "mean":
+            input_mask_expanded = attention_mask.unsqueeze(-1).expand(hidden_states.size()).float()
+            sum_embeddings = torch.sum(hidden_states * input_mask_expanded, 1)
+            sum_mask = torch.clamp(input_mask_expanded.sum(1), min=1e-9)
+            pooled = sum_embeddings / sum_mask
+        elif self.pooling_strategy == "cls":
+            pooled = hidden_states[:, 0, :]
+        elif self.pooling_strategy == "max":
+            input_mask_expanded = attention_mask.unsqueeze(-1).expand(hidden_states.size()).float()
+            hidden_states[input_mask_expanded == 0] = -1e9
+            pooled = torch.max(hidden_states, 1)[0]
+        elif self.pooling_strategy == "last_token":
+            batch_size = hidden_states.shape[0]
+            sequence_lengths = attention_mask.sum(dim=1) - 1
+            pooled = hidden_states[torch.arange(batch_size), sequence_lengths]
+        else:
+            raise ValueError(f"Unknown pooling strategy: {self.pooling_strategy}")
+        return self._project_embeddings(pooled)
+
+    def get_embeddings(self, texts: List[str], prompt_name: Optional[str] = None) -> Tensor:
+        if prompt_name == "query":
+            texts = [f"Query: {text}" for text in texts]
+        elif prompt_name is not None:
+            texts = [f"{prompt_name}: {text}" for text in texts]
+
+        inputs = self.tokenizer(
+            texts,
+            padding=self.config.padding,
+            truncation=self.config.truncation,
+            max_length=self.config.max_length,
+            return_tensors="pt"
+        )
+
+        if self.device == "cuda":
+            device_to_use = "cuda" if torch.cuda.is_available() else "cpu"
+            inputs = {k: v.to(device_to_use) for k, v in inputs.items()}
+
+        with torch.no_grad():
+            outputs = self.model(**inputs, output_hidden_states=True)
+            hidden_states = outputs.hidden_states[-1]
+            embeddings = self._pool_embeddings(hidden_states, inputs['attention_mask'])
+
+            if embeddings.dim() == 1:
+                embeddings = embeddings.unsqueeze(0)
+            if embeddings.shape[1] != self.output_dim and self.projection_method != "none":
+                embeddings = self._project_embeddings(embeddings)
+
+        if self.config.convert_to_numpy:
+            embeddings = embeddings.cpu().numpy()
+        elif not self.config.convert_to_tensor:
+            embeddings = embeddings.tolist()
+
+        return embeddings
+
+    def calculate_scores(self, query_embeddings: Tensor, document_embeddings: Tensor) -> Tensor:
+        if isinstance(query_embeddings, list):
+            query_embeddings = torch.tensor(query_embeddings)
+        if isinstance(document_embeddings, list):
+            document_embeddings = torch.tensor(document_embeddings)
+
+        query_embeddings = F.normalize(query_embeddings, p=2, dim=1)
+        document_embeddings = F.normalize(document_embeddings, p=2, dim=1)
+        scores = torch.mm(query_embeddings, document_embeddings.transpose(0, 1))
+        return scores
+
+    def get_scores(self, queries: List[str], documents: List[str]) -> Tensor:
+        query_embeddings = self.get_embeddings(queries, "query")
+        document_embeddings = self.get_embeddings(documents)
+        scores = self.calculate_scores(query_embeddings, document_embeddings)
+        return scores
+
+    def similarity(self, embeddings1: Tensor, embeddings2: Tensor) -> Tensor:
+        return self.calculate_scores(embeddings1, embeddings2)
 
 
 @dataclass

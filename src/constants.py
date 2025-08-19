@@ -22,6 +22,8 @@ GPC_PATH = DATA_PATH / "gpc_sample.xlsx"
 
 TRAIN_VAL_DATA_PATH = DATA_PATH / "train_val.csv"
 
+TRAIN_CLEANED_DATA_PATH = DATA_PATH / "train_cleaned.csv"
+
 TEST_DATA_PATH = DATA_PATH / "test.csv"
 
 CLEANED_TEST_DATA_PATH = DATA_PATH / "cleaned_test.csv"
@@ -36,6 +38,7 @@ PRODUCT_TEST_EMBEDDINGS_PATH = DATA_PATH / "product_test_embeddings.csv"
 
 PRODUCT_TRAIN_EMBEDDINGS_PATH = DATA_PATH / "product_train_embeddings.csv"
 
+
 CLASS_EMBEDDINGS_PATH = DATA_PATH / "class_embeddings.csv"
 
 CONFIG_PATH = BASE_DIR / "config"
@@ -43,6 +46,8 @@ CONFIG_PATH = BASE_DIR / "config"
 E5_LARGE_INSTRUCT_CONFIG_PATH = CONFIG_PATH / "e5_large_instruct_config.json"
 
 OPUS_TRANSLATION_CONFIG_PATH = CONFIG_PATH / "opus_translation_config.json"
+
+FALCON3_7B_CONFIG_PATH = CONFIG_PATH / "falcon3_7B_config.json"
 
 ENV_PATH = CONFIG_PATH / ".env"
 

@@ -1,6 +1,8 @@
 import torch
 import torch.nn.functional as F
 import pandas as pd
+import chardet
+import unicodedata
 
 import re
 import json
@@ -14,6 +16,8 @@ from modules.models import (
     SentenceEmbeddingConfig,
     OpusTranslationModel,
     OpusTranslationModelConfig,
+    Falcon3EmbeddingModel, 
+    Falcon3EmbeddingConfig
 )
 
 def remove_repeated_words(text):
@@ -107,6 +111,20 @@ def load_kmeans_model(config_path: str):
 
     return model
 
+def load_falcon3_embedding_model(config_path: str):
+    with open(config_path, "r") as f:
+        config_dict = json.load(f)
+    
+    try:
+        config = Falcon3EmbeddingConfig(**config_dict)
+    except TypeError as e:
+        raise ValueError(f"Invalid configuration keys: {e}.")
+
+    model = Falcon3EmbeddingModel(config)
+
+    return model
+
+
 def load_translation_model(config_path: str):
     with open(config_path, "r") as f:
         config_dict = json.load(f)
@@ -155,3 +173,15 @@ def cluster_topk_classes(cluster_embeddings: List[List[float]], classes_embeddin
 
     return topk_classes[1]
  
+def detect_file_encoding(file_path, n_bytes=100000):
+    with open(file_path, "rb") as f:
+        raw_data = f.read(n_bytes)
+        result = chardet.detect(raw_data)
+    return result
+
+def unicode_clean(s):
+    if not isinstance(s, str):
+        return s
+    s = unicodedata.normalize('NFKC', s)
+    s = ''.join(c for c in s if unicodedata.category(c)[0] != 'C') 
+    return s.strip()

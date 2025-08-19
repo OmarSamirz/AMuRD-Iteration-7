@@ -1,0 +1,14 @@
+{
+    "model_name": "tiiuae/Falcon3-7B-Base",
+    "device": "cuda",
+    "dtype": "float16",
+    "padding": true,
+    "truncation": true,
+    "use_4bit_quantization": true,
+    "max_length": 512,
+    "convert_to_numpy": false,
+    "convert_to_tensor": true,
+    "pooling_strategy": "mean",
+    "output_dim": 1024,
+    "projection_method": "truncate"
+}
