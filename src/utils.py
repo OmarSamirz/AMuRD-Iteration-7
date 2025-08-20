@@ -16,8 +16,6 @@ from modules.models import (
     SentenceEmbeddingConfig,
     OpusTranslationModel,
     OpusTranslationModelConfig,
-    Falcon3EmbeddingModel, 
-    Falcon3EmbeddingConfig
 )
 
 def remove_repeated_words(text):
@@ -110,20 +108,6 @@ def load_kmeans_model(config_path: str):
     model = KMeansModels(config)
 
     return model
-
-def load_falcon3_embedding_model(config_path: str):
-    with open(config_path, "r") as f:
-        config_dict = json.load(f)
-    
-    try:
-        config = Falcon3EmbeddingConfig(**config_dict)
-    except TypeError as e:
-        raise ValueError(f"Invalid configuration keys: {e}.")
-
-    model = Falcon3EmbeddingModel(config)
-
-    return model
-
 
 def load_translation_model(config_path: str):
     with open(config_path, "r") as f:

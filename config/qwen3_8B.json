@@ -1,0 +1,21 @@
+{
+    "device": "cuda",
+    "dtype": "float16",
+    "convert_to_numpy": true,
+    "convert_to_tensor": false,
+    "model_id": "Qwen/Qwen3-Embedding-8B",
+    "truncate_dim": 1024,
+    "use_prompt": false,
+    "prompt_config": {
+        "classification": "Instruct: You are embedding product names for classification. Each product name may be in Arabic, English, or a mix of both. Focus only on the semantic meaning of the product (not brand names, numbers, or irrelevant text). The goal is to map the product name into one of 44 predefined product categories. Generate an embedding that best represents the product’s meaning for classification.\nText: {text}"
+    },
+    "model_kwargs": {
+        "torch_dtype": "float16",
+        "quantization_config": {
+            "load_in_4bit": true,
+            "bnb_4bit_compute_dtype": "float16",
+            "bnb_4bit_quant_type": "nf4",
+            "bnb_4bit_use_double_quant": true
+        }
+    }
+}

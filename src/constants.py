@@ -24,11 +24,17 @@ TRAIN_VAL_DATA_PATH = DATA_PATH / "train_val.csv"
 
 TRAIN_CLEANED_DATA_PATH = DATA_PATH / "train_cleaned.csv"
 
+VALIDATION_DATA_PATH = DATA_PATH / "validation.csv"
+
 TEST_DATA_PATH = DATA_PATH / "test.csv"
+
+FULL_DATA_SET_DATA_PATH = DATA_PATH / "full_dataset.csv"
 
 CLEANED_TEST_DATA_PATH = DATA_PATH / "cleaned_test.csv"
 
 CLEANED_TRAIN_DATA_PATH = DATA_PATH / "cleaned_train.csv"
+
+CLEANED_FULL_DATASET_DATA_PATH = DATA_PATH / "cleaned_full_dataset.csv"
 
 GPC_PATH = DATA_PATH / "GPC.xlsx"
 
@@ -38,8 +44,13 @@ PRODUCT_TEST_EMBEDDINGS_PATH = DATA_PATH / "product_test_embeddings.csv"
 
 PRODUCT_TRAIN_EMBEDDINGS_PATH = DATA_PATH / "product_train_embeddings.csv"
 
+PRODUCT_FULL_DATASET_EMBEDDINGS_PATH = DATA_PATH / "product_full_dataset_embeddings.csv"
+
+PRODUCT_FULL_DATASET_EMBEDDINGS__QWEN_PATH  = DATA_PATH / "product_full_dataset_embeddings_qwen.csv"
 
 CLASS_EMBEDDINGS_PATH = DATA_PATH / "class_embeddings.csv"
+
+CLASS_EMBEDDINGS_PATH_QWEN = DATA_PATH / "class_embeddings_qwen.csv"
 
 CONFIG_PATH = BASE_DIR / "config"
 
@@ -48,6 +59,8 @@ E5_LARGE_INSTRUCT_CONFIG_PATH = CONFIG_PATH / "e5_large_instruct_config.json"
 OPUS_TRANSLATION_CONFIG_PATH = CONFIG_PATH / "opus_translation_config.json"
 
 FALCON3_7B_CONFIG_PATH = CONFIG_PATH / "falcon3_7B_config.json"
+
+QWEN3_8B_CONFIG_PATH = CONFIG_PATH / "qwen3_8B.json"
 
 ENV_PATH = CONFIG_PATH / ".env"
 

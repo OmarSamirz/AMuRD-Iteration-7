@@ -1,0 +1,8 @@
+[2025-08-20 18:58:28] - logger:_log - INFO - Logger initialized. Logs will be saved to c:\Users\ss255385\OneDrive - Teradata Corporation\Desktop\AMuRD-Iteration-7\src\logs\borai_20250820_185828.log
+[2025-08-20 18:58:29] - logger:_log - INFO - TeradataDatabase instance initialized
+[2025-08-20 18:58:29] - logger:_log - INFO - Operation 'Database connection' started - Details: {'host': 'iteration7-gwyyqrtdecxxq4xk.env.clearscape.teradata.com', 'database': 'demo_user'}
+[2025-08-20 18:58:34] - logger:_log - INFO - Operation 'Database connection' completed
+[2025-08-20 18:58:34] - logger:_log - INFO - Operation 'Query execution' started - Details: {'query': 'Select * from demo_user.products'}
+[2025-08-20 18:58:40] - logger:_log - INFO - Operation 'Query execution' completed - Details: {'rows_returned': 37584}
+[2025-08-20 18:58:40] - SentenceTransformer:__init__ - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-8B
+[2025-08-20 18:58:40] - connectionpool:_new_conn - DEBUG - Starting new HTTPS connection (1): huggingface.co:443

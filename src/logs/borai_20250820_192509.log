@@ -1,0 +1,54 @@
+[2025-08-20 19:25:09] - logger:_log - INFO - Logger initialized. Logs will be saved to c:\Users\ss255385\OneDrive - Teradata Corporation\Desktop\AMuRD-Iteration-7\src\logs\borai_20250820_192509.log
+[2025-08-20 19:25:11] - logger:_log - INFO - TeradataDatabase instance initialized
+[2025-08-20 19:25:11] - logger:_log - INFO - Operation 'Database connection' started - Details: {'host': 'iteration7-gwyyqrtdecxxq4xk.env.clearscape.teradata.com', 'database': 'demo_user'}
+[2025-08-20 19:25:18] - logger:_log - INFO - Operation 'Database connection' completed
+[2025-08-20 19:25:19] - SentenceTransformer:__init__ - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-8B
+[2025-08-20 19:25:19] - connectionpool:_new_conn - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+[2025-08-20 19:25:20] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-08-20 19:25:20] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen3-Embedding-8B/1d8ad4ca9b3dd8059ad90a75d4983776a23d44af/modules.json HTTP/1.1" 200 0
+[2025-08-20 19:25:21] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-08-20 19:25:21] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen3-Embedding-8B/1d8ad4ca9b3dd8059ad90a75d4983776a23d44af/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-08-20 19:25:22] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-08-20 19:25:22] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen3-Embedding-8B/1d8ad4ca9b3dd8059ad90a75d4983776a23d44af/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-08-20 19:25:23] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/README.md HTTP/1.1" 307 0
+[2025-08-20 19:25:23] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen3-Embedding-8B/1d8ad4ca9b3dd8059ad90a75d4983776a23d44af/README.md HTTP/1.1" 200 0
+[2025-08-20 19:25:23] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-08-20 19:25:24] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen3-Embedding-8B/1d8ad4ca9b3dd8059ad90a75d4983776a23d44af/modules.json HTTP/1.1" 200 0
+[2025-08-20 19:25:24] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/sentence_bert_config.json HTTP/1.1" 404 0
+[2025-08-20 19:25:25] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/sentence_roberta_config.json HTTP/1.1" 404 0
+[2025-08-20 19:25:25] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/sentence_distilbert_config.json HTTP/1.1" 404 0
+[2025-08-20 19:25:26] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/sentence_camembert_config.json HTTP/1.1" 404 0
+[2025-08-20 19:25:26] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/sentence_albert_config.json HTTP/1.1" 404 0
+[2025-08-20 19:25:27] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/sentence_xlm-roberta_config.json HTTP/1.1" 404 0
+[2025-08-20 19:25:27] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/sentence_xlnet_config.json HTTP/1.1" 404 0
+[2025-08-20 19:25:28] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-08-20 19:25:28] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/config.json HTTP/1.1" 307 0
+[2025-08-20 19:25:29] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen3-Embedding-8B/1d8ad4ca9b3dd8059ad90a75d4983776a23d44af/config.json HTTP/1.1" 200 0
+[2025-08-20 19:25:30] - cextension:get_native_library - DEBUG - Loading bitsandbytes native library from: c:\Users\ss255385\AppData\Local\Programs\Python\Python313\Lib\site-packages\bitsandbytes\libbitsandbytes_cuda126.dll
+[2025-08-20 19:26:12] - logger:_log - INFO - TeradataDatabase instance initialized
+[2025-08-20 19:26:12] - logger:_log - INFO - Operation 'Database connection' started - Details: {'host': 'iteration7-gwyyqrtdecxxq4xk.env.clearscape.teradata.com', 'database': 'demo_user'}
+[2025-08-20 19:26:12] - warnings:_showwarnmsg - WARNING - c:\Users\ss255385\AppData\Local\Programs\Python\Python313\Lib\site-packages\teradatasqlalchemy\telemetry\queryband.py:382: UserWarning: [Teradata][teradataml](TDML_2002) Overwriting an existing context associated with Teradata Vantage Connection. Most of the operations on any teradataml DataFrames created before this will not work.
+  return exposed_func(*args, **kwargs)
+
+[2025-08-20 19:26:17] - logger:_log - INFO - Operation 'Database connection' completed
+[2025-08-20 19:26:28] - SentenceTransformer:__init__ - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-8B
+[2025-08-20 19:26:28] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-08-20 19:26:28] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen3-Embedding-8B/1d8ad4ca9b3dd8059ad90a75d4983776a23d44af/modules.json HTTP/1.1" 200 0
+[2025-08-20 19:26:29] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-08-20 19:26:29] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen3-Embedding-8B/1d8ad4ca9b3dd8059ad90a75d4983776a23d44af/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-08-20 19:26:30] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-08-20 19:26:30] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen3-Embedding-8B/1d8ad4ca9b3dd8059ad90a75d4983776a23d44af/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-08-20 19:26:31] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/README.md HTTP/1.1" 307 0
+[2025-08-20 19:26:31] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen3-Embedding-8B/1d8ad4ca9b3dd8059ad90a75d4983776a23d44af/README.md HTTP/1.1" 200 0
+[2025-08-20 19:26:31] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-08-20 19:26:32] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen3-Embedding-8B/1d8ad4ca9b3dd8059ad90a75d4983776a23d44af/modules.json HTTP/1.1" 200 0
+[2025-08-20 19:26:32] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/sentence_bert_config.json HTTP/1.1" 404 0
+[2025-08-20 19:26:33] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/sentence_roberta_config.json HTTP/1.1" 404 0
+[2025-08-20 19:26:33] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/sentence_distilbert_config.json HTTP/1.1" 404 0
+[2025-08-20 19:26:34] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/sentence_camembert_config.json HTTP/1.1" 404 0
+[2025-08-20 19:26:34] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/sentence_albert_config.json HTTP/1.1" 404 0
+[2025-08-20 19:26:35] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/sentence_xlm-roberta_config.json HTTP/1.1" 404 0
+[2025-08-20 19:26:35] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/sentence_xlnet_config.json HTTP/1.1" 404 0
+[2025-08-20 19:26:36] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-08-20 19:26:36] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/config.json HTTP/1.1" 307 0
+[2025-08-20 19:26:37] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen3-Embedding-8B/1d8ad4ca9b3dd8059ad90a75d4983776a23d44af/config.json HTTP/1.1" 200 0

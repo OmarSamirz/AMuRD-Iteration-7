@@ -1,0 +1,8 @@
+[2025-08-20 17:36:33] - logger:_log - INFO - Logger initialized. Logs will be saved to c:\Users\ss255385\OneDrive - Teradata Corporation\Desktop\AMuRD-Iteration-7\src\logs\borai_20250820_173633.log
+[2025-08-20 17:36:34] - logger:_log - INFO - TeradataDatabase instance initialized
+[2025-08-20 17:36:34] - logger:_log - INFO - Operation 'Database connection' started - Details: {'host': 'iteration7-gwyyqrtdecxxq4xk.env.clearscape.teradata.com', 'database': 'demo_user'}
+[2025-08-20 17:36:46] - logger:_log - INFO - Operation 'Database connection' completed
+[2025-08-20 17:36:52] - logger:_log - INFO - Operation 'Query execution' started - Details: {'query': '\nSELECT * FROM TD_ClassificationEvaluator (\n   ON demo_user.results AS InputTable\n   OUT PERMANENT T...'}
+[2025-08-20 17:36:53] - logger:_log - INFO - Operation 'Query execution' completed - Details: {'rows_returned': 0}
+[2025-08-20 17:36:53] - logger:_log - INFO - Operation 'Query execution' started - Details: {'query': 'select * from demo_user.classification_metrics'}
+[2025-08-20 17:36:53] - logger:_log - INFO - Operation 'Query execution' completed - Details: {'rows_returned': 10}
