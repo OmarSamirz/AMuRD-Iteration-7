@@ -14,3 +14,6 @@ tiktoken
 protobuf
 sentencepiece
 sacremoses
+chardet
+swifter
+bitsandbytes

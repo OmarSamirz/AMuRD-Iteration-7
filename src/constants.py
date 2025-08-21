@@ -46,7 +46,7 @@ PRODUCT_TRAIN_EMBEDDINGS_PATH = DATA_PATH / "product_train_embeddings.csv"
 
 PRODUCT_FULL_DATASET_EMBEDDINGS_PATH = DATA_PATH / "product_full_dataset_embeddings.csv"
 
-PRODUCT_FULL_DATASET_EMBEDDINGS__QWEN_PATH  = DATA_PATH / "product_full_dataset_embeddings_qwen.csv"
+PRODUCT_FULL_DATASET_EMBEDDINGS_QWEN_PATH  = DATA_PATH / "product_full_dataset_embeddings_qwen.csv"
 
 CLASS_EMBEDDINGS_PATH = DATA_PATH / "class_embeddings.csv"
 

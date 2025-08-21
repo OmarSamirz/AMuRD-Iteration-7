@@ -1,0 +1,67 @@
+[2025-08-21 14:05:25] - logger:_log - INFO - Logger initialized. Logs will be saved to c:\internship\AMuRD-Iteration-7\src\logs\borai_20250821_140525.log
+[2025-08-21 14:05:44] - logger:_log - INFO - TeradataDatabase instance initialized
+[2025-08-21 14:05:44] - logger:_log - INFO - Operation 'Database connection' started - Details: {'host': 'iteration6-72i0y48cfm1eb812.env.clearscape.teradata.com', 'database': 'demo_user'}
+[2025-08-21 14:05:51] - logger:_log - INFO - Operation 'Database connection' completed
+[2025-08-21 14:06:11] - warnings:_showwarnmsg - WARNING - C:\Users\os255022\AppData\Local\Temp\ipykernel_31284\4034503121.py:2: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  df_actual_class.rename(columns={'class': 'class_name'}, inplace=True)
+
+[2025-08-21 14:06:11] - warnings:_showwarnmsg - WARNING - C:\Users\os255022\AppData\Local\Temp\ipykernel_31284\4034503121.py:3: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  df_actual_class["product_id"] = df_actual_class.index
+
+[2025-08-21 14:07:40] - logger:_log - INFO - Operation 'Query execution' started - Details: {'query': '\nUPDATE demo_user.classes\nSET class_name = LOWER(\n    TRIM(\n        REGEXP_REPLACE(\n            REGE...'}
+[2025-08-21 14:07:40] - logger:_log - INFO - Operation 'Query execution' completed - Details: {'rows_returned': 0}
+[2025-08-21 14:07:44] - logger:_log - INFO - Operation 'Query execution' started - Details: {'query': 'Select * from demo_user.classes'}
+[2025-08-21 14:07:44] - logger:_log - INFO - Operation 'Query execution' completed - Details: {'rows_returned': 45}
+[2025-08-21 14:07:46] - logger:_log - INFO - Operation 'Query execution' started - Details: {'query': '\nUPDATE demo_user.actual_classes\nSET class_name = LOWER(\n    TRIM(\n        REGEXP_REPLACE(\n         ...'}
+[2025-08-21 14:07:52] - logger:_log - INFO - Operation 'Query execution' completed - Details: {'rows_returned': 0}
+[2025-08-21 14:07:56] - logger:_log - INFO - Operation 'Query execution' started - Details: {'query': 'Select * from demo_user.actual_classes'}
+[2025-08-21 14:08:02] - logger:_log - INFO - Operation 'Query execution' completed - Details: {'rows_returned': 47722}
+[2025-08-21 14:08:13] - SentenceTransformer:__init__ - INFO - Load pretrained SentenceTransformer: Qwen/Qwen3-Embedding-8B
+[2025-08-21 14:08:13] - connectionpool:_new_conn - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+[2025-08-21 14:08:14] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-08-21 14:08:14] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen3-Embedding-8B/1d8ad4ca9b3dd8059ad90a75d4983776a23d44af/modules.json HTTP/1.1" 200 0
+[2025-08-21 14:08:14] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-08-21 14:08:14] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen3-Embedding-8B/1d8ad4ca9b3dd8059ad90a75d4983776a23d44af/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-08-21 14:08:14] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-08-21 14:08:14] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen3-Embedding-8B/1d8ad4ca9b3dd8059ad90a75d4983776a23d44af/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-08-21 14:08:15] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/README.md HTTP/1.1" 307 0
+[2025-08-21 14:08:15] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen3-Embedding-8B/1d8ad4ca9b3dd8059ad90a75d4983776a23d44af/README.md HTTP/1.1" 200 0
+[2025-08-21 14:08:15] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-08-21 14:08:15] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen3-Embedding-8B/1d8ad4ca9b3dd8059ad90a75d4983776a23d44af/modules.json HTTP/1.1" 200 0
+[2025-08-21 14:08:15] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/sentence_bert_config.json HTTP/1.1" 404 0
+[2025-08-21 14:08:15] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/sentence_roberta_config.json HTTP/1.1" 404 0
+[2025-08-21 14:08:16] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/sentence_distilbert_config.json HTTP/1.1" 404 0
+[2025-08-21 14:08:16] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/sentence_camembert_config.json HTTP/1.1" 404 0
+[2025-08-21 14:08:16] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/sentence_albert_config.json HTTP/1.1" 404 0
+[2025-08-21 14:08:16] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/sentence_xlm-roberta_config.json HTTP/1.1" 404 0
+[2025-08-21 14:08:17] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/sentence_xlnet_config.json HTTP/1.1" 404 0
+[2025-08-21 14:08:17] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-08-21 14:08:17] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/config.json HTTP/1.1" 307 0
+[2025-08-21 14:08:17] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen3-Embedding-8B/1d8ad4ca9b3dd8059ad90a75d4983776a23d44af/config.json HTTP/1.1" 200 0
+[2025-08-21 14:08:17] - cextension:get_native_library - DEBUG - Loading bitsandbytes native library from: c:\internship\AMuRD-Iteration-7\.venv\Lib\site-packages\bitsandbytes\libbitsandbytes_cuda118.dll
+[2025-08-21 14:08:31] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-08-21 14:08:31] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen3-Embedding-8B/1d8ad4ca9b3dd8059ad90a75d4983776a23d44af/tokenizer_config.json HTTP/1.1" 200 0
+[2025-08-21 14:08:31] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "GET /api/models/Qwen/Qwen3-Embedding-8B/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-08-21 14:08:32] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /Qwen/Qwen3-Embedding-8B/resolve/main/1_Pooling/config.json HTTP/1.1" 307 0
+[2025-08-21 14:08:32] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen3-Embedding-8B/1d8ad4ca9b3dd8059ad90a75d4983776a23d44af/1_Pooling%2Fconfig.json HTTP/1.1" 200 0
+[2025-08-21 14:08:32] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "GET /api/models/Qwen/Qwen3-Embedding-8B HTTP/1.1" 200 4756
+[2025-08-21 14:08:32] - SentenceTransformer:__init__ - INFO - 1 prompt is loaded, with the key: query
+[2025-08-21 14:09:40] - logger:_log - INFO - Operation 'Query execution' started - Details: {'query': '\n    CREATE TABLE demo_user.similiratiy_score (\n        item_id BIGINT,\n        closest_category_id ...'}
+[2025-08-21 14:09:41] - logger:_log - INFO - Operation 'Query execution' completed - Details: {'rows_returned': 0}
+[2025-08-21 14:09:46] - logger:_log - INFO - Operation 'Query execution' started - Details: {'query': '\nINSERT INTO demo_user.similiratiy_score\nWITH RankedDistances AS (\n    SELECT\n        o.Target_ID AS...'}
+[2025-08-21 14:10:28] - logger:_log - INFO - Operation 'Query execution' completed - Details: {'rows_returned': 0}
+[2025-08-21 14:10:28] - logger:_log - INFO - Operation 'Query execution' started - Details: {'query': 'SELECT * FROM demo_user.similiratiy_score'}
+[2025-08-21 14:10:33] - logger:_log - INFO - Operation 'Query execution' completed - Details: {'rows_returned': 37584}
+[2025-08-21 14:10:56] - logger:_log - INFO - Operation 'Query execution' started - Details: {'query': '\nSELECT\n    p.translated_name AS product_name,\n    c.class_name AS predicted_class,\n    a.class_name...'}
+[2025-08-21 14:11:04] - logger:_log - INFO - Operation 'Query execution' completed - Details: {'rows_returned': 37584}
+[2025-08-21 14:11:34] - logger:_log - INFO - Operation 'Query execution' started - Details: {'query': '\nSELECT * FROM TD_ClassificationEvaluator (\n   ON demo_user.results AS InputTable\n   OUT PERMANENT T...'}
+[2025-08-21 14:11:35] - logger:_log - INFO - Operation 'Query execution' completed - Details: {'rows_returned': 0}
+[2025-08-21 14:11:35] - logger:_log - INFO - Operation 'Query execution' started - Details: {'query': 'select * from demo_user.classification_metrics'}
+[2025-08-21 14:11:35] - logger:_log - INFO - Operation 'Query execution' completed - Details: {'rows_returned': 10}

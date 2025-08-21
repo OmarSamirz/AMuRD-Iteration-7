@@ -1,8 +1,0 @@
-[2025-08-20 17:38:23] - logger:_log - INFO - Logger initialized. Logs will be saved to c:\Users\ss255385\OneDrive - Teradata Corporation\Desktop\AMuRD-Iteration-7\src\logs\borai_20250820_173823.log
-[2025-08-20 17:38:23] - logger:_log - INFO - TeradataDatabase instance initialized
-[2025-08-20 17:38:23] - logger:_log - INFO - Operation 'Database connection' started - Details: {'host': 'iteration7-gwyyqrtdecxxq4xk.env.clearscape.teradata.com', 'database': 'demo_user'}
-[2025-08-20 17:38:28] - logger:_log - INFO - Operation 'Database connection' completed
-[2025-08-20 17:38:44] - logger:write - ERROR - Exception ignored in: <bound method IPythonKernel._clean_thread_parent_frames of <ipykernel.ipkernel.IPythonKernel object at 0x00000186E74081A0>>Traceback (most recent call last):
-[2025-08-20 17:38:44] - logger:write - ERROR -   File "C:\Users\ss255385\AppData\Roaming\Python\Python313\site-packages\ipykernel\ipkernel.py", line 796, in _clean_thread_parent_frames
-[2025-08-20 17:38:44] - logger:write - ERROR - active_threads = {thread.ident for thread in threading.enumerate()}  File "c:\Users\ss255385\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 1479, in enumerate
-[2025-08-20 17:38:44] - logger:flush - ERROR - def enumerate():KeyboardInterrupt:
