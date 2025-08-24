@@ -6,8 +6,6 @@ import os
 from typing import Any, List, Dict
 
 from constants import ENV_PATH
-from modules.logger import logger
-
 
 class TeradataDatabase:
 
@@ -21,10 +19,8 @@ class TeradataDatabase:
         self.port = os.getenv("TD_PORT", 1025)
         self.connection = None
         self._schema_cache = None
-        logger.info("TeradataDatabase instance initialized")
 
     def connect(self) -> None:
-        logger.log_operation("Database connection", "started", {"host": self.host, "database": self.database})
         try:
             self.connection = tdml.create_context(
                 host=self.host,
@@ -32,48 +28,37 @@ class TeradataDatabase:
                 user=self.user,
                 password=self.password,
             )
-            logger.log_operation("Database connection", "completed")
         except tdml.OperationalError as e:
-            logger.exception(e, "database connection")
             raise
 
     def disconnect(self) -> None:
         if self.connection:
-            logger.log_operation("Database disconnection", "started")
             tdml.remove_context()
             self.connection = None
-            logger.log_operation("Database disconection", "completed")
 
     def execute_query(self, query: str) -> List[Dict[str, Any]]:
         if not self.connection:
-            logger.error("Database connection is not established")
             raise Exception("Database connection is not established. Call connect() first.")
         
         try:
-            logger.log_operation("Query execution", "started", {"query": query[:100] + "..." if len(query) > 100 else query})
             result = execute_sql(query)
 
             columns = [desc[0] for desc in result.description] if result.description else []
-
             rows = result.fetchall()
+
             results = [
                 {columns[i]: value for i, value in enumerate(row)}
                 for row in rows
             ]
-
-            logger.log_operation("Query execution", "completed", {"rows_returned": len(results)})
             return results
         except Exception as e:
-            logger.exception(e, "query execution")
             raise Exception(f"Query execution failed: {str(e)}")
 
     def _get_sample_data(self, table: str) -> str:
         query = f"SELECT * FROM {table} SAMPLE 3;"
         try:
-            logger.debug(f"Getting sample data for table: {table}")
             result = execute_sql(query)
             if result.rowcount == 0:
-                logger.debug(f"No sample data available for table: {table}")
                 return "No data available"
 
             rows = result.fetchall()
@@ -86,20 +71,16 @@ class TeradataDatabase:
                 result.append(f"row{i+1}: {', '.join(row_values)}")
 
             return "\n".join(result)
-        except tdml.OperationalError as e:
-            logger.exception(e, f"retrieving sample data for {table}")
+        except tdml.OperationalError:
             return "Error retrieving sample data"
         
     def get_schema(self) -> str:
         if not self.connection:
-            logger.error("Database connection is not established")
-            raise Exception("Databse connection is not established. Call connect() first.")
+            raise Exception("Database connection is not established. Call connect() first.")
         
         if self._schema_cache:
-            logger.debug("Returning cached schema.")
             return self._schema_cache
         
-        logger.log_operation("Schema retrieval", "started")
         query = """
         SELECT t.tablename, c.columnname, c.columntype
         FROM dbc.tablesv as t
@@ -122,8 +103,7 @@ class TeradataDatabase:
         try:
             result = execute_sql(query)
             if result.rowcount == 0:
-                logger.warning("No schema data returned from database")
-                raise
+                raise Exception("No schema data returned from database")
             
             rows = result.fetchall()
             schema = {}
@@ -145,10 +125,8 @@ class TeradataDatabase:
                 schema_parts.append(table_name)
             
             self._schema_cache = "\n".join(schema_parts)
-            logger.log_operation("Schema retrieval", "completed", {"tables_count": len(schema)})
             return self._schema_cache
         except tdml.OperationalError as e:
-            logger.exception(e, "retrieving schema")
             raise
 
     def _format_td_type(self, type_code: str, length: int, total_digits: int, fractional_digits: int) -> str:
@@ -175,4 +153,4 @@ class TeradataDatabase:
     def __exit__(self, exc_type, exc_value, traceback):
         self.disconnect()
         if exc_type:
-            logger.exception(exc_value, "database context manager")
+            raise exc_value

@@ -1,62 +1,0 @@
-[2025-08-12 16:36:00] - logger:_log - INFO - Logger initialized. Logs will be saved to C:\internship\AMuRD-Iteration-7\logs\borai_20250812_163600.log
-[2025-08-12 16:36:30] - logger:_log - INFO - TeradataDatabase instance initialized
-[2025-08-12 16:36:30] - logger:_log - INFO - Operation 'Database connection' started - Details: {'host': 'iteration6-72i0y48cfm1eb812.env.clearscape.teradata.com', 'database': 'amurd'}
-[2025-08-12 16:36:37] - logger:_log - INFO - Operation 'Database connection' completed
-[2025-08-12 16:36:37] - logger:_log - INFO - Operation 'Query execution' started - Details: {'query': 'SELECT * FROM amurd.products'}
-[2025-08-12 16:36:38] - logger:_log - INFO - Operation 'Query execution' completed - Details: {'rows_returned': 4573}
-[2025-08-12 16:37:27] - SentenceTransformer:__init__ - INFO - Load pretrained SentenceTransformer: intfloat/multilingual-e5-large-instruct
-[2025-08-12 16:37:27] - connectionpool:_new_conn - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
-[2025-08-12 16:37:27] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /intfloat/multilingual-e5-large-instruct/resolve/main/modules.json HTTP/1.1" 307 0
-[2025-08-12 16:37:27] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/intfloat/multilingual-e5-large-instruct/274baa43b0e13e37fafa6428dbc7938e62e5c439/modules.json HTTP/1.1" 200 0
-[2025-08-12 16:37:27] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /intfloat/multilingual-e5-large-instruct/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
-[2025-08-12 16:37:27] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/intfloat/multilingual-e5-large-instruct/274baa43b0e13e37fafa6428dbc7938e62e5c439/config_sentence_transformers.json HTTP/1.1" 200 0
-[2025-08-12 16:37:28] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /intfloat/multilingual-e5-large-instruct/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
-[2025-08-12 16:37:28] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/intfloat/multilingual-e5-large-instruct/274baa43b0e13e37fafa6428dbc7938e62e5c439/config_sentence_transformers.json HTTP/1.1" 200 0
-[2025-08-12 16:37:28] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /intfloat/multilingual-e5-large-instruct/resolve/main/README.md HTTP/1.1" 307 0
-[2025-08-12 16:37:28] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/intfloat/multilingual-e5-large-instruct/274baa43b0e13e37fafa6428dbc7938e62e5c439/README.md HTTP/1.1" 200 0
-[2025-08-12 16:37:28] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /intfloat/multilingual-e5-large-instruct/resolve/main/modules.json HTTP/1.1" 307 0
-[2025-08-12 16:37:28] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/intfloat/multilingual-e5-large-instruct/274baa43b0e13e37fafa6428dbc7938e62e5c439/modules.json HTTP/1.1" 200 0
-[2025-08-12 16:37:28] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /intfloat/multilingual-e5-large-instruct/resolve/main/sentence_bert_config.json HTTP/1.1" 404 0
-[2025-08-12 16:37:28] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /intfloat/multilingual-e5-large-instruct/resolve/main/sentence_roberta_config.json HTTP/1.1" 404 0
-[2025-08-12 16:37:28] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /intfloat/multilingual-e5-large-instruct/resolve/main/sentence_distilbert_config.json HTTP/1.1" 404 0
-[2025-08-12 16:37:29] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /intfloat/multilingual-e5-large-instruct/resolve/main/sentence_camembert_config.json HTTP/1.1" 404 0
-[2025-08-12 16:37:29] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /intfloat/multilingual-e5-large-instruct/resolve/main/sentence_albert_config.json HTTP/1.1" 404 0
-[2025-08-12 16:37:29] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /intfloat/multilingual-e5-large-instruct/resolve/main/sentence_xlm-roberta_config.json HTTP/1.1" 307 0
-[2025-08-12 16:37:29] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/intfloat/multilingual-e5-large-instruct/274baa43b0e13e37fafa6428dbc7938e62e5c439/sentence_xlm-roberta_config.json HTTP/1.1" 200 0
-[2025-08-12 16:37:29] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /intfloat/multilingual-e5-large-instruct/resolve/main/adapter_config.json HTTP/1.1" 404 0
-[2025-08-12 16:37:29] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /intfloat/multilingual-e5-large-instruct/resolve/main/config.json HTTP/1.1" 307 0
-[2025-08-12 16:37:29] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/intfloat/multilingual-e5-large-instruct/274baa43b0e13e37fafa6428dbc7938e62e5c439/config.json HTTP/1.1" 200 0
-[2025-08-12 16:37:30] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /intfloat/multilingual-e5-large-instruct/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
-[2025-08-12 16:37:30] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/intfloat/multilingual-e5-large-instruct/274baa43b0e13e37fafa6428dbc7938e62e5c439/tokenizer_config.json HTTP/1.1" 200 0
-[2025-08-12 16:37:30] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "GET /api/models/intfloat/multilingual-e5-large-instruct/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
-[2025-08-12 16:37:31] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /intfloat/multilingual-e5-large-instruct/resolve/main/1_Pooling/config.json HTTP/1.1" 307 0
-[2025-08-12 16:37:31] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "HEAD /api/resolve-cache/models/intfloat/multilingual-e5-large-instruct/274baa43b0e13e37fafa6428dbc7938e62e5c439/1_Pooling%2Fconfig.json HTTP/1.1" 200 0
-[2025-08-12 16:37:31] - connectionpool:_make_request - DEBUG - https://huggingface.co:443 "GET /api/models/intfloat/multilingual-e5-large-instruct HTTP/1.1" 200 287613
-[2025-08-12 16:37:32] - logger:flush - ERROR - [nltk_data] Downloading package stopwords to
-[nltk_data]     C:\Users\os255022\AppData\Roaming\nltk_data...[nltk_data]   Package stopwords is already up-to-date!
-[2025-08-12 16:37:32] - logger:flush - INFO - hello
-[2025-08-12 16:37:32] - logger:flush - ERROR - Batches:   0%|                                                                                                     | 0/143 [00:00<?, ?it/s]
-[2025-08-12 16:37:32] - logger:flush - ERROR - Batches:   1%|6                                                                                            | 1/143 [00:00<00:28,  4.94it/s]
-[2025-08-12 16:37:33] - logger:flush - ERROR - Batches:   5%|####5                                                                                        | 7/143 [00:00<00:05, 24.81it/s]
-[2025-08-12 16:37:33] - logger:flush - ERROR - Batches:   7%|######4                                                                                     | 10/143 [00:00<00:05, 26.59it/s]
-[2025-08-12 16:37:33] - logger:flush - ERROR - Batches:  11%|##########2                                                                                 | 16/143 [00:00<00:03, 37.30it/s]
-[2025-08-12 16:37:33] - logger:flush - ERROR - Batches:  16%|##############7                                                                             | 23/143 [00:00<00:02, 46.79it/s]
-[2025-08-12 16:37:33] - logger:flush - ERROR - Batches:  20%|##################6                                                                         | 29/143 [00:00<00:02, 45.71it/s]
-[2025-08-12 16:37:33] - logger:flush - ERROR - Batches:  24%|######################5                                                                     | 35/143 [00:00<00:02, 49.32it/s]
-[2025-08-12 16:37:33] - logger:flush - ERROR - Batches:  29%|##########################3                                                                 | 41/143 [00:00<00:02, 49.95it/s]
-[2025-08-12 16:37:33] - logger:flush - ERROR - Batches:  33%|##############################2                                                             | 47/143 [00:01<00:01, 52.47it/s]
-[2025-08-12 16:37:33] - logger:flush - ERROR - Batches:  37%|##################################                                                          | 53/143 [00:01<00:01, 51.68it/s]
-[2025-08-12 16:37:34] - logger:flush - ERROR - Batches:  41%|#####################################9                                                      | 59/143 [00:01<00:01, 52.98it/s]
-[2025-08-12 16:37:34] - logger:flush - ERROR - Batches:  45%|#########################################8                                                  | 65/143 [00:01<00:01, 54.31it/s]
-[2025-08-12 16:37:34] - logger:flush - ERROR - Batches:  50%|##############################################3                                             | 72/143 [00:01<00:01, 57.18it/s]
-[2025-08-12 16:37:34] - logger:flush - ERROR - Batches:  55%|##################################################1                                         | 78/143 [00:01<00:01, 57.78it/s]
-[2025-08-12 16:37:34] - logger:flush - ERROR - Batches:  59%|######################################################6                                     | 85/143 [00:01<00:00, 59.05it/s]
-[2025-08-12 16:37:34] - logger:flush - ERROR - Batches:  64%|##########################################################5                                 | 91/143 [00:01<00:00, 57.73it/s]
-[2025-08-12 16:37:34] - logger:flush - ERROR - Batches:  69%|###############################################################                             | 98/143 [00:01<00:00, 59.65it/s]
-[2025-08-12 16:37:34] - logger:flush - ERROR - Batches:  73%|##################################################################8                        | 105/143 [00:02<00:00, 60.57it/s]
-[2025-08-12 16:37:34] - logger:flush - ERROR - Batches:  78%|#######################################################################2                   | 112/143 [00:02<00:00, 62.87it/s]
-[2025-08-12 16:37:35] - logger:flush - ERROR - Batches:  83%|###########################################################################7               | 119/143 [00:02<00:00, 60.38it/s]
-[2025-08-12 16:37:35] - logger:flush - ERROR - Batches:  88%|################################################################################1          | 126/143 [00:02<00:00, 60.02it/s]
-[2025-08-12 16:37:35] - logger:flush - ERROR - Batches:  93%|####################################################################################6      | 133/143 [00:02<00:00, 58.53it/s]
-[2025-08-12 16:37:35] - logger:flush - ERROR - Batches:  97%|########################################################################################4  | 139/143 [00:02<00:00, 57.38it/s]
-[2025-08-12 16:37:35] - logger:flush - ERROR - Batches: 100%|###########################################################################################| 143/143 [00:02<00:00, 52.48it/s]

@@ -1,5 +1,0 @@
-{
-    "topk": null,
-    "n_clusters": 40,
-    "model_name": "kmeans_model.pkl"
-}

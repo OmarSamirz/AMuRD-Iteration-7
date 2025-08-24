@@ -1,7 +1,6 @@
 import torch
 import nltk
 from nltk.corpus import stopwords
-
 from pathlib import Path
 
 try:
@@ -9,6 +8,8 @@ try:
 except:
     nltk.download("stopwords")
     ALL_STOPWORDS = set(stopwords.words("arabic") + stopwords.words("english"))
+
+TD_DB = "demo_user"
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -1626,3 +1627,6 @@ ALL_BRANDS = {
     "NFI Emirates Pofaki",
     "California Garden"
 }
+
+
+from dotenv import load_dotenv
